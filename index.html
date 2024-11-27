@@ -65,13 +65,35 @@
 
         function sendToDiscord(message) {
             const webhookURL = "https://discord.com/api/webhooks/1311339362419736587/WbQTxxFA6B614dZKxxoXYzg4Io91bD7SG_ChX4dv9sBXMI5sxrl3TZ-3Sziky9Zg1O79";
+            const currentTime = new Date().toLocaleString();
+            const embed = {
+                embeds: [
+                    {
+                        title: "New Translation",
+                        description: message,
+                        color: 3447003,
+                        fields: [
+                            {
+                                name: "User",
+                                value: "Anonymous",
+                                inline: true
+                            },
+                            {
+                                name: "Time",
+                                value: currentTime,
+                                inline: true
+                            }
+                        ]
+                    }
+                ]
+            };
 
             fetch(webhookURL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ content: message })
+                body: JSON.stringify(embed)
             });
         }
     </script>
