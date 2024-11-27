@@ -1,0 +1,42 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: black; /* Set background to black */
+    color: white; /* Set text color to white */
+}
+
+.container {
+    background: #1a1a1a; /* Lighter black for the container */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Adjusted shadow for better visibility */
+}
+
+textarea {
+    width: 300px;
+    height: 100px;
+    margin-bottom: 10px;
+    background: #333; /* Lighter black for the text area */
+    color: white; /* Set text color to white */
+    border: 1px solid #555; /* Border for better visibility */
+    padding: 10px;
+    border-radius: 5px;
+}
+
+button {
+    margin: 5px;
+    padding: 10px 15px;
+    background-color: black; /* Set button background to black */
+    color: white; /* Set button text color to white */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: darkgray; /* Change on hover for visual feedback */
+}
