@@ -27,6 +27,15 @@
         }
         button {
             margin: 5px;
+            padding: 10px 15px;
+            background-color: black;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: darkgray;
         }
     </style>
 </head>
@@ -35,8 +44,9 @@
         <h2>Encrypt & Decrypt Text</h2>
         <textarea id="inputText" placeholder="Enter text here..."></textarea><br>
         <button onclick="encryptText()">Encrypt</button>
-        <button onclick="decryptText()">Decrypt</button>
-        <textarea id="outputText" placeholder="Output will appear here..."></textarea>
+        <button onclick="decryptText()">Decrypt</button><br>
+        <textarea id="outputText" placeholder="Output will appear here..."></textarea><br>
+        <button onclick="copyToClipboard()">Copy</button>
     </div>
 
     <script>
@@ -76,6 +86,13 @@
                 decrypted += decryptionKey[code] || code;
             }
             document.getElementById('outputText').value = decrypted;
+        }
+
+        function copyToClipboard() {
+            const output = document.getElementById('outputText');
+            output.select();
+            document.execCommand('copy');
+            alert('Copied to clipboard');
         }
     </script>
 </body>
