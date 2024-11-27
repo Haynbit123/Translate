@@ -3,48 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Encrypt/Decrypt</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <title>Encrypt & Decrypt Text</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        textarea {
+            width: 300px;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+        button {
+            margin: 5px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Encrypt/Decrypt Text</h1>
-    <textarea id="inputText" placeholder="Enter text here"></textarea><br>
-    <input type="password" id="key" placeholder="Enter encryption key"><br>
-    <button onclick="encryptText()">Encrypt</button>
-    <button onclick="decryptText()">Decrypt</button><br>
-    <h3>Result:</h3>
-    <p id="result"></p>
+    <div class="container">
+        <h2>Encrypt & Decrypt Text</h2>
+        <textarea id="inputText" placeholder="Enter text here..."></textarea><br>
+        <button onclick="encryptText()">Encrypt</button>
+        <button onclick="decryptText()">Decrypt</button>
+        <textarea id="outputText" placeholder="Output will appear here..."></textarea>
+    </div>
 
     <script>
+        const encryptionKey = {
+            'A': '1F3A', 'B': '7K8T', 'C': '4L2M', 'D': '5R9J', 'E': '8H3X', 'F': '6P2Q', 'G': '3Z7N',
+            'H': '2V6K', 'I': '9X8B', 'J': '7L5W', 'K': '1P4D', 'L': '3J2F', 'M': '5H6C', 'N': '8Q7R',
+            'O': '4K3Z', 'P': '6V5M', 'Q': '2X9P', 'R': '9N8T', 'S': '7F1L', 'T': '3D2H', 'U': '5J9X',
+            'V': '6K8B', 'W': '1H7P', 'X': '4L2Q', 'Y': '8R3Z', 'Z': '2M5V', 'a': '9F4K', 'b': '1C8T',
+            'c': '7X3L', 'd': '3H2N', 'e': '5R6V', 'f': '6M9P', 'g': '8D7J', 'h': '2K4Z', 'i': '4P5W',
+            'j': '3Q1F', 'k': '9L8B', 'l': '1N7H', 'm': '5X2K', 'n': '7F4J', 'o': '2D3L', 'p': '6R9M',
+            'q': '8K5P', 'r': '4H2V', 's': '9C8T', 't': '1M7X', 'u': '3L6Z', 'v': '5P2Q', 'w': '7J9N',
+            'x': '2R4K', 'y': '8D1F', 'z': '6H3V', '0': '5X9B', '1': '7L2M', '2': '3P8T', '3': '9Q4K',
+            '4': '1H7V', '5': '6M5P', '6': '2D3J', '7': '4R9Z', '8': '8K1F', '9': '3L2H', '!': '6X7T',
+            '"': '2Q9K', '#': '5D8M', '$': '9F3P', '%': '1H4V', '&': '7J2R', "'": '3L8K', '(': '6X1F',
+            ')': '2N7M', '*': '5P4J', '+': '9K3D', ',': '1H2R', '-': '7L9V', '.': '3Q8T', '/': '6X4K',
+            ':': '5M2H', ';': '9P1F', '<': '2D7J', '=': '4R3L', '>': '8K6X', '?': '1H9V', '@': '7L5P',
+            '[': '3Q2M', '\\': '9D4J', ']': '5R1F', '^': '2K3H', '_': '6X7T', '`': '8L9V', '{': '1P4M',
+            '|': '7J2D', '}': '5H8R', '~': '3K6X', ' ': '4L1F'
+        };
+
+        const decryptionKey = Object.fromEntries(Object.entries(encryptionKey).map(([k, v]) => [v, k]));
+
         function encryptText() {
-            const text = document.getElementById('inputText').value;
-            const key = document.getElementById('key').value;
-
-            if (!key) {
-                alert("Please enter a key!");
-                return;
+            const input = document.getElementById('inputText').value;
+            let encrypted = '';
+            for (let char of input) {
+                encrypted += encryptionKey[char] || char;
             }
-
-            const encrypted = CryptoJS.AES.encrypt(text, key).toString();
-            document.getElementById('result').innerText = encrypted;
+            document.getElementById('outputText').value = encrypted;
         }
 
         function decryptText() {
-            const text = document.getElementById('inputText').value;
-            const key = document.getElementById('key').value;
-
-            if (!key) {
-                alert("Please enter a key!");
-                return;
+            const input = document.getElementById('outputText').value;
+            let decrypted = '';
+            for (let i = 0; i < input.length; i += 4) {
+                const code = input.substr(i, 4);
+                decrypted += decryptionKey[code] || code;
             }
-
-            try {
-                const decrypted = CryptoJS.AES.decrypt(text, key).toString(CryptoJS.enc.Utf8);
-                if (!decrypted) throw new Error("Invalid decryption");
-                document.getElementById('result').innerText = decrypted;
-            } catch (error) {
-                document.getElementById('result').innerText = "Decryption failed!";
-            }
+            document.getElementById('outputText').value = decrypted;
         }
     </script>
 </body>
